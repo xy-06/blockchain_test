@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blockchain.dao.BlockMapper">
+  <resultMap id="BaseResultMap" type="com.example.blockchain.po.Block">
+    <id column="blockhash" jdbcType="CHAR" property="blockhash" />
+    <result column="height" jdbcType="INTEGER" property="height" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="txSize" jdbcType="SMALLINT" property="txsize" />
+    <result column="difficulty" jdbcType="DOUBLE" property="difficulty" />
+    <result column="weight" jdbcType="REAL" property="weight" />
+    <result column="merkleroot" jdbcType="CHAR" property="merkleroot" />
+    <result column="output_total" jdbcType="CHAR" property="outputTotal" />
+    <result column="nextBlockHash" jdbcType="CHAR" property="nextblockhash" />
+    <result column="prevBlockHash" jdbcType="CHAR" property="prevblockhash" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    blockhash, height, time, txSize, difficulty, weight, merkleroot, output_total, nextBlockHash, 
+    prevBlockHash
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from block
+    where blockhash = #{blockhash,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from block
+    where blockhash = #{blockhash,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.blockchain.po.Block">
+    insert into block (blockhash, height, time, 
+      txSize, difficulty, weight, 
+      merkleroot, output_total, nextBlockHash, 
+      prevBlockHash)
+    values (#{blockhash,jdbcType=CHAR}, #{height,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
+      #{txsize,jdbcType=SMALLINT}, #{difficulty,jdbcType=DOUBLE}, #{weight,jdbcType=REAL}, 
+      #{merkleroot,jdbcType=CHAR}, #{outputTotal,jdbcType=CHAR}, #{nextblockhash,jdbcType=CHAR}, 
+      #{prevblockhash,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.blockchain.po.Block">
+    insert into block
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blockhash != null">
+        blockhash,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="txsize != null">
+        txSize,
+      </if>
+      <if test="difficulty != null">
+        difficulty,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="merkleroot != null">
+        merkleroot,
+      </if>
+      <if test="outputTotal != null">
+        output_total,
+      </if>
+      <if test="nextblockhash != null">
+        nextBlockHash,
+      </if>
+      <if test="prevblockhash != null">
+        prevBlockHash,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blockhash != null">
+        #{blockhash,jdbcType=CHAR},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="txsize != null">
+        #{txsize,jdbcType=SMALLINT},
+      </if>
+      <if test="difficulty != null">
+        #{difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=REAL},
+      </if>
+      <if test="merkleroot != null">
+        #{merkleroot,jdbcType=CHAR},
+      </if>
+      <if test="outputTotal != null">
+        #{outputTotal,jdbcType=CHAR},
+      </if>
+      <if test="nextblockhash != null">
+        #{nextblockhash,jdbcType=CHAR},
+      </if>
+      <if test="prevblockhash != null">
+        #{prevblockhash,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.blockchain.po.Block">
+    update block
+    <set>
+      <if test="height != null">
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="txsize != null">
+        txSize = #{txsize,jdbcType=SMALLINT},
+      </if>
+      <if test="difficulty != null">
+        difficulty = #{difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=REAL},
+      </if>
+      <if test="merkleroot != null">
+        merkleroot = #{merkleroot,jdbcType=CHAR},
+      </if>
+      <if test="outputTotal != null">
+        output_total = #{outputTotal,jdbcType=CHAR},
+      </if>
+      <if test="nextblockhash != null">
+        nextBlockHash = #{nextblockhash,jdbcType=CHAR},
+      </if>
+      <if test="prevblockhash != null">
+        prevBlockHash = #{prevblockhash,jdbcType=CHAR},
+      </if>
+    </set>
+    where blockhash = #{blockhash,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.blockchain.po.Block">
+    update block
+    set height = #{height,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP},
+      txSize = #{txsize,jdbcType=SMALLINT},
+      difficulty = #{difficulty,jdbcType=DOUBLE},
+      weight = #{weight,jdbcType=REAL},
+      merkleroot = #{merkleroot,jdbcType=CHAR},
+      output_total = #{outputTotal,jdbcType=CHAR},
+      nextBlockHash = #{nextblockhash,jdbcType=CHAR},
+      prevBlockHash = #{prevblockhash,jdbcType=CHAR}
+    where blockhash = #{blockhash,jdbcType=CHAR}
+  </update>
+
+
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from block
+  </select>
+
+
+
+</mapper>

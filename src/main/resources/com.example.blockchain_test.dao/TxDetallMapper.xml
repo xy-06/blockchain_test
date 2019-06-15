@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blockchain.dao.TxDetallMapper">
+  <resultMap id="BaseResultMap" type="com.example.blockchain.po.TxDetall">
+    <id column="txid" jdbcType="BIGINT" property="txid" />
+    <result column="adress" jdbcType="VARCHAR" property="adress" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+    <result column="isRemove" jdbcType="VARCHAR" property="isremove" />
+    <result column="hash" jdbcType="CHAR" property="hash" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    txid, adress, amount, isRemove, hash
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tx_detall
+    where txid = #{txid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tx_detall
+    where txid = #{txid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.blockchain.po.TxDetall">
+    insert into tx_detall (txid, adress, amount, 
+      isRemove, hash)
+    values (#{txid,jdbcType=BIGINT}, #{adress,jdbcType=VARCHAR}, #{amount,jdbcType=DOUBLE}, 
+      #{isremove,jdbcType=VARCHAR}, #{hash,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.blockchain.po.TxDetall">
+    insert into tx_detall
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="txid != null">
+        txid,
+      </if>
+      <if test="adress != null">
+        adress,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="isremove != null">
+        isRemove,
+      </if>
+      <if test="hash != null">
+        hash,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="txid != null">
+        #{txid,jdbcType=BIGINT},
+      </if>
+      <if test="adress != null">
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="isremove != null">
+        #{isremove,jdbcType=VARCHAR},
+      </if>
+      <if test="hash != null">
+        #{hash,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.blockchain.po.TxDetall">
+    update tx_detall
+    <set>
+      <if test="adress != null">
+        adress = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="isremove != null">
+        isRemove = #{isremove,jdbcType=VARCHAR},
+      </if>
+      <if test="hash != null">
+        hash = #{hash,jdbcType=CHAR},
+      </if>
+    </set>
+    where txid = #{txid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.blockchain.po.TxDetall">
+    update tx_detall
+    set adress = #{adress,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DOUBLE},
+      isRemove = #{isremove,jdbcType=VARCHAR},
+      hash = #{hash,jdbcType=CHAR}
+    where txid = #{txid,jdbcType=BIGINT}
+  </update>
+</mapper>

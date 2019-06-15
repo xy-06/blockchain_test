@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blockchain.dao.TransacationMapper">
+  <resultMap id="BaseResultMap" type="com.example.blockchain.po.Transacation">
+    <id column="txhash" jdbcType="CHAR" property="txhash" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="size" jdbcType="INTEGER" property="size" />
+    <result column="weight" jdbcType="REAL" property="weight" />
+    <result column="total_output" jdbcType="DOUBLE" property="totalOutput" />
+    <result column="total_input" jdbcType="DOUBLE" property="totalInput" />
+    <result column="fee" jdbcType="DOUBLE" property="fee" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    txhash, time, size, weight, total_output, total_input, fee
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from transacation
+    where txhash = #{txhash,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from transacation
+    where txhash = #{txhash,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.blockchain.po.Transacation">
+    insert into transacation (txhash, time, size, 
+      weight, total_output, total_input, 
+      fee)
+    values (#{txhash,jdbcType=CHAR}, #{time,jdbcType=TIMESTAMP}, #{size,jdbcType=INTEGER}, 
+      #{weight,jdbcType=REAL}, #{totalOutput,jdbcType=DOUBLE}, #{totalInput,jdbcType=DOUBLE}, 
+      #{fee,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.blockchain.po.Transacation">
+    insert into transacation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="txhash != null">
+        txhash,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="totalOutput != null">
+        total_output,
+      </if>
+      <if test="totalInput != null">
+        total_input,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="txhash != null">
+        #{txhash,jdbcType=CHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=REAL},
+      </if>
+      <if test="totalOutput != null">
+        #{totalOutput,jdbcType=DOUBLE},
+      </if>
+      <if test="totalInput != null">
+        #{totalInput,jdbcType=DOUBLE},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.blockchain.po.Transacation">
+    update transacation
+    <set>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=REAL},
+      </if>
+      <if test="totalOutput != null">
+        total_output = #{totalOutput,jdbcType=DOUBLE},
+      </if>
+      <if test="totalInput != null">
+        total_input = #{totalInput,jdbcType=DOUBLE},
+      </if>
+      <if test="fee != null">
+        fee = #{fee,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where txhash = #{txhash,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.blockchain.po.Transacation">
+    update transacation
+    set time = #{time,jdbcType=TIMESTAMP},
+      size = #{size,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=REAL},
+      total_output = #{totalOutput,jdbcType=DOUBLE},
+      total_input = #{totalInput,jdbcType=DOUBLE},
+      fee = #{fee,jdbcType=DOUBLE}
+    where txhash = #{txhash,jdbcType=CHAR}
+  </update>
+</mapper>
