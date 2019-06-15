@@ -1,6 +1,6 @@
 package com.example.blockchain_test.dao;
 
-import com.example.blockchain.po.Transacation;
+import com.example.blockchain_test.po.Transacation;
 
 public interface TransacationMapper {
     int deleteByPrimaryKey(String txhash);

@@ -1,6 +1,6 @@
 package com.example.blockchain_test.dao;
 
-import com.example.blockchain.po.TxDetall;
+import com.example.blockchain_test.po.TxDetall;
 
 public interface TxDetallMapper {
     int deleteByPrimaryKey(Long txid);
