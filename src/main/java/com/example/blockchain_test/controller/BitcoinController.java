@@ -22,12 +22,20 @@ public class BitcoinController {
 
     }
 
+    @GetMapping("/notxdetails")
+    public String notxdetails(){
+        JSONObject jsonObject = blockApi.notxdetails("00000000000000000024b3d4793dcbba032d3fc28a0d77a37d466b956fb68aa5");
+        return jsonObject.toJSONString();
+    }
+
     @GetMapping("/getTransaction")
     public String getTransaction(){
         JSONObject jsonObject = blockApi.getTransaction("00000000000000000024b3d4793dcbba032d3fc28a0d77a37d466b956fb68aa5");
         return jsonObject.toJSONString();
 
     }
+
+
 
     @GetMapping("/block")
     public String block(){
@@ -64,9 +72,5 @@ public class BitcoinController {
         JSONObject jsonObject = blockApi.mempool();
         return jsonObject.toJSONString();
     }
-
-
-
-
 
 }

@@ -18,6 +18,9 @@ public interface BlockApi {
     @GetMapping("/rest/headers{count}.json")
     JSONObject headers(@PathVariable("count") Integer count);
 
+    @GetMapping("/rest/notxdetails{blockhash}.json")
+    JSONObject notxdetails(@PathVariable("blockhash") String blockhash);
+
     @GetMapping("/rest/block{blockhash}.json")
     JSONObject block(@PathVariable("blockhash") String blockhash);
 
