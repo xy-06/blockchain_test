@@ -9,14 +9,9 @@ response:
         "height": 580644,
         "time": "2019-06-14T08:28:23.750+0000",
         "txsize": 2390,
-        "size": 1257767
-    },
-    {
-        "blockhash": "00000000000000000001ce5f88601a311f1c73c0073a15fe4e5956da7fbcd78b",
-        "height": 580643,
-        "time": "2019-06-14T08:28:23.750+0000",
-        "txsize": 2702,
-        "size": 1322496
+        "size": 1257767,
+        "prevBlcok": "00000000000000000005ac7036789bfec28d230dff491f3382f6daf6523f5c44",
+        "nextBlock": "00000000000000000024b3d4793dcbba032d3fc28a0d77a37d466b956fb68aa5"
     }
 ]
 ```
@@ -28,6 +23,8 @@ response:
 |    time|   Date |  出块时间 |
 |    txsize|   Short |  交易数量 |
 |    size|   Integer |  区块大小 |
+|    prevBlcok|   String | 前一个区块 |
+|    nextBlock|   String |  后一个区块 |
 
 
 
@@ -66,3 +63,34 @@ response:
 |    time|   Long |  出块时间 |
 |    difficulty|   Double |  难度系数 |
 |    size|   Integer |  区块大小 |
+
+
+
+
+
+
+## 3 根据区块hash获取区块交易详情
+
+method：GET  
+url: /block/getByBlockhash?blockhashTedall={blockhashTedall}
+
+response:
+```json
+{
+    "blockhash": "00000000000000000001ce5f88601a311f1c73c0073a15fe4e5956da7fbcd78b",
+    "address": "00000000000000000005ac7036789bfec28d230dff491f3382f6daf6523f5c44",
+    "fees":8766.38,
+   "outputTotal":	6098.51829156,
+    "size": 1322496
+}
+
+```
+
+| ResponseField     |     Type |   Description   | 
+| :--------------: | :--------:| :------: |
+|    blockhash|   String |  区块hash |
+|    address|   string |  区块地址 |
+|    outputTotal|   Double | 总输出 |
+|    fees|   Double |  交易费用|
+|    size|   Integer |  区块大小 |
+
