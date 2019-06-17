@@ -1,6 +1,7 @@
 package com.example.blockchain_test.api;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +16,8 @@ public interface BlockApi {
     @GetMapping("/rest/tx{txhash}.json")
     JSONObject getTransaction(@PathVariable("txhash") String txhash);
 
-    @GetMapping("/rest/headers{count}.json")
-    JSONObject headers(@PathVariable("count") Integer count);
+    @GetMapping("/rest/headers{count}/{blockhash}.json")
+    JSONArray headers(@PathVariable("count") Integer count,@PathVariable("blockhash") String blockhash);
 
     @GetMapping("/rest/notxdetails{blockhash}.json")
     JSONObject notxdetails(@PathVariable("blockhash") String blockhash);

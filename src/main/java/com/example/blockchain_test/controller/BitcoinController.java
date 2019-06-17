@@ -1,6 +1,7 @@
 package com.example.blockchain_test.controller;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.blockchain_test.api.BlockApi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class BitcoinController {
 
     @GetMapping("/headers")
     public String headers(){
-        JSONObject jsonObject = blockApi.headers(1543870);
+        JSONArray jsonObject = blockApi.headers(1543870,"00000000000000000024b3d4793dcbba032d3fc28a0d77a37d466b956fb68aa5");
         return jsonObject.toJSONString();
     }
 
