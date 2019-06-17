@@ -40,19 +40,19 @@ public class BitcoinController {
 
     @GetMapping("/block")
     public String block(){
-        JSONObject jsonObject = blockApi.block("00000000000000000024b3d4793dcbba032d3fc28a0d77a37d466b956fb68aa5");
+        JSONObject jsonObject = blockApi.block("00000000000002e3e9b76bcba2d6b22ce91d219a7b8b612a57b8f4a1c2a04965");
         return jsonObject.toJSONString();
     }
 
     @GetMapping("/headers")
     public String headers(){
-        JSONArray jsonObject = blockApi.headers(1543870,"00000000000000000024b3d4793dcbba032d3fc28a0d77a37d466b956fb68aa5");
+        JSONArray jsonObject = blockApi.headers(5,"00000000000002e3e9b76bcba2d6b22ce91d219a7b8b612a57b8f4a1c2a04965");
         return jsonObject.toJSONString();
     }
 
     @GetMapping("/blockhashbyheight")
     public String blockhashbyheight(){
-        JSONObject jsonObject = blockApi.blockhashbyheight(10);
+        JSONObject jsonObject = blockApi.blockhashbyheight(1544018);
         return jsonObject.toJSONString();
     }
 
