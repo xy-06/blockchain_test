@@ -2,6 +2,8 @@ package com.example.blockchain_test.controller;
 
 import com.example.blockchain_test.dto.BlockGetDTO;
 import com.example.blockchain_test.dto.BlockListDTO;
+import com.example.blockchain_test.service.BlockService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,17 @@ import java.util.List;
 @RequestMapping("/block")
 @EnableAutoConfiguration
 public class BlockController {
+
+    @Autowired
+    protected BlockService blockService;
+
+    @GetMapping("/getRecentBlocks")
+    public List<BlockListDTO> getRecentBlocks2(){
+        List<BlockListDTO> recentBlocks = blockService.getRecentBlocks();
+        return recentBlocks;
+    }
+
+
 
 
     @GetMapping("/getRecentBlocks")

@@ -23,6 +23,18 @@
     from block
     where blockhash = #{blockhash,jdbcType=CHAR}
   </select>
+
+
+  <select id="selectRecentBlocks" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from block
+    GROUP BY height DESC
+    limit 5
+  </select>
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from block
     where blockhash = #{blockhash,jdbcType=CHAR}
