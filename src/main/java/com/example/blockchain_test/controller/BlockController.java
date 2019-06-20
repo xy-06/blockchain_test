@@ -1,5 +1,7 @@
 package com.example.blockchain_test.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.example.blockchain_test.api.BlockApi;
 import com.example.blockchain_test.dto.BlockGetDTO;
 import com.example.blockchain_test.dto.BlockListDTO;
 import com.example.blockchain_test.service.BlockService;
@@ -22,7 +24,10 @@ public class BlockController {
     @Autowired
     protected BlockService blockService;
 
-    @GetMapping("/getRecentBlocks")
+    @Autowired
+    private BlockApi blockApi;
+
+    @GetMapping("/getRecentBlocks2")
     public List<BlockListDTO> getRecentBlocks2(){
         List<BlockListDTO> recentBlocks = blockService.getRecentBlocks();
         return recentBlocks;
@@ -85,5 +90,24 @@ public class BlockController {
         blockGetDTO.setDifficulty(7409399249090.25);
         return blockGetDTO;
     }
+
+
+    @GetMapping("/getblockbyblockhash")
+    public BlockGetDTO getblockbyheight(@RequestParam(required = false)String blockhash) throws Throwable {
+        JSONObject jsonObject = blockApi.block(blockhash);
+        BlockGetDTO blockGetDTO = new BlockGetDTO();
+        blockGetDTO.setDifficulty(jsonObject.getDouble("difficulty"));
+        blockGetDTO.setBlockhash("blockhash");
+        blockGetDTO.setHeight(jsonObject.getInteger("height"));
+        blockGetDTO.setPrevBlock(jsonObject.getString("previousblockhash"));
+        blockGetDTO.setSize(jsonObject.getInteger("size"));
+        blockGetDTO.setNextBlock(jsonObject.getString("nextblockhash"));
+        blockGetDTO.setDifficulty(jsonObject.getDouble("difficulty"));
+        blockGetDTO.setFees(jsonObject.getDouble("fees"));
+        blockGetDTO.setOutputTotal(jsonObject.getDouble("outputTotal"));
+        return blockGetDTO;
+    }
+
+
 
 }

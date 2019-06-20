@@ -114,4 +114,13 @@
       fee = #{fee,jdbcType=DOUBLE}
     where txhash = #{txhash,jdbcType=CHAR}
   </update>
+
+
+  <select id="getBalance" parameterType="java.lang.String" resultType="java.lang.Double">
+    select sum(amount) FROM TRANSACTION
+    WHERE address = #{address}
+
+  </select>
+
+
 </mapper>

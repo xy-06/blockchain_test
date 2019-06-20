@@ -5,10 +5,11 @@ import com.example.blockchain_test.dto.BlockListDTO;
 import com.example.blockchain_test.po.Block;
 import com.example.blockchain_test.service.BlockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class BlockServiceImpl implements BlockService{
 
     @Autowired

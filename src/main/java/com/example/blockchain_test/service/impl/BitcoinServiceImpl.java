@@ -6,8 +6,10 @@ import com.example.blockchain_test.api.BitcoinJsonRpcApi;
 import com.example.blockchain_test.dao.BlockMapper;
 import com.example.blockchain_test.dao.TransacationMapper;
 import com.example.blockchain_test.dto.TransacationDto;
+import com.example.blockchain_test.dto.TransactionDetail;
 import com.example.blockchain_test.po.Block;
 import com.example.blockchain_test.po.Transacation;
+import com.example.blockchain_test.po.TxDetall;
 import com.example.blockchain_test.service.BitcoinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ public class BitcoinServiceImpl implements BitcoinService {
 
     @Autowired
     private BitcoinJsonRpcApi bitcoinJsonRpcApi;
+
 
     @Autowired
     private TransacationMapper transacationMapper;
@@ -79,6 +82,29 @@ public class BitcoinServiceImpl implements BitcoinService {
     public void syncDetailvin(JSONArray vins) {
         for (Object vout : vins) {
             JSONObject jsonObject = new JSONObject((LinkedHashMap) vout);
+        }
+    }
+
+    @Override
+    public void syncTxDetailvin(JSONArray vins, String txid) throws Throwable {
+        for (Object vinObj : vins) {
+            JSONObject jsonObject = new JSONObject((LinkedHashMap) vinObj);
+            String vinTxid = jsonObject.getString("txid");
+            Integer n = jsonObject.getInteger("vout");
+            JSONObject vinTxJson = bitcoinJsonRpcApi.getTransactionByID(vinTxid);
+            JSONArray vouts = vinTxJson.getJSONArray("vout");
+            JSONObject utxoJson = vouts.getJSONObject(n);
+
+            TransactionDetail txDetail = new TransactionDetail();
+            txDetail.setAmount(utxoJson.getDouble("value"));
+            txDetail.setTxhash(txid);
+            JSONObject scriptPubKey = jsonObject.getJSONObject("scriptPubKey");
+            JSONArray addresses = scriptPubKey.getJSONArray("address");
+            if(addresses!=null){
+                String address = addresses.getString(0);
+                txDetail.setAddress(address);
+            }
+            transacationMapper.insert(txDetail);
         }
     }
 
